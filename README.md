@@ -1,0 +1,2 @@
+"skipLibCheck": true
+"forceConsistentCasingInFileNames": true,
