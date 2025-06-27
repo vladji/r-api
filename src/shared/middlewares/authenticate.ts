@@ -1,0 +1,28 @@
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { TokenPayload } from "../../types/token";
+
+const ACCESS_SECRET = process.env.ACCESS_SECRET!;
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader?.split(" ")[1];
+
+  if (!token) {
+    res.sendStatus(401);
+    return;
+  }
+
+  try {
+    req.user = jwt.verify(token, ACCESS_SECRET) as TokenPayload;
+    next();
+  } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      res.status(401).json({ message: "Token expired" });
+      return;
+    }
+
+    res.status(403).json({ message: "Invalid token" });
+    return;
+  }
+};
