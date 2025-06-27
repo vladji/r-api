@@ -4,9 +4,10 @@
   "description": "kit-api",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "NODE_ENV=development ts-node src/app.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "crypto": "ts-node src/shared/utils/crypto.ts"
   },
   "author": "vladji",
   "license": "ISC",
@@ -14,16 +15,22 @@
     "bcrypt": "^6.0.0",
     "compression": "^1.8.0",
     "config": "^4.0.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.17.0",
     "mongoose": "^8.15.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.0.1",
+    "dotenv": "^16.5.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
