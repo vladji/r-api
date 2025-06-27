@@ -4,9 +4,10 @@ import { ObjectId } from "mongodb";
 const Schema = mongoose.Schema;
 
 const Seller = new Schema({
-  uniq: { type: String, required: true },
+  uniqId: { type: String, required: true, unique: true, },
   name: { type: String, required: true },
-  hash: { type: String, required: true },
+  phone: { type: String, unique: true },
+  passHash: { type: String, required: true },
   cover: {
     image: { type: String, required: true },
   },
@@ -20,6 +21,13 @@ const Seller = new Schema({
     period_max: { type: Number, required: true },
   },
   menu_id: { type: ObjectId },
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      delete ret._id;
+      delete ret.__v;
+    }
+  }
 });
 
 export const SellerSchema = mongoose.model("seller", Seller);

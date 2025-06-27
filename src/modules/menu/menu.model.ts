@@ -20,6 +20,13 @@ const Menu = new Schema({
       ]
     }
   ]
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      delete ret._id;
+      delete ret.__v;
+    }
+  }
 });
 
 export const MenuSchema = mongoose.model("menus", Menu);
