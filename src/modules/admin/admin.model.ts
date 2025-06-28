@@ -3,7 +3,11 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const adminSchema = new Schema({
-  uniqId: { type: String, required: true, unique: true, },
+  uniqId: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   passHash: { type: String, required: true },
 }, {
   toJSON: {

@@ -1,9 +1,9 @@
 import express from "express";
-import { authenticateToken } from "../../shared/middlewares/authenticate";
+import { verifyToken } from "../../shared/middlewares/verifyToken";
 import { getSellersList } from "./seller.controller";
 
 const router = express.Router();
 
-router.get("/sellers-list", authenticateToken, getSellersList);
+router.get("/sellers-list", verifyToken, getSellersList);
 
 export default router;

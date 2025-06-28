@@ -1,10 +1,15 @@
 import express, { NextFunction, Response } from "express";
-import { adminLogin, clientLogin, refreshToken } from "./auth.controller";
+import {
+  adminLogin,
+  logout,
+  refreshToken,
+  sellerLogin
+} from "./auth.controller";
 import { LoginRequest } from "./types";
 
 const router = express.Router();
 
-router.post("/login",
+router.post("/auth/login",
   async (req: LoginRequest, res: Response, next: NextFunction) => {
     try {
       const { uniqId } = req.body;
@@ -12,13 +17,14 @@ router.post("/login",
       if (uniqId === process.env.ADMIN_NAME) {
         return adminLogin(req, res);
       } else {
-        return clientLogin(req, res);
+        return sellerLogin(req, res);
       }
     } catch (err) {
       next(err);
     }
   });
 
-router.post("/refresh-token", refreshToken);
+router.post("/auth/refresh-token", refreshToken);
+router.post("/auth/logout", logout);
 
 export default router;
