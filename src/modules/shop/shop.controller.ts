@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { SellerSchema } from "./seller.model";
+import { ShopSchema } from "./shop.model";
 import { errorHandler } from "../../shared/middlewares/errorHandler";
 
-export const getSellersList = async (req: Request, res: Response) => {
-  SellerSchema
+export const getShopList = async (req: Request, res: Response) => {
+  ShopSchema
     .find()
     .then((sellers) => {
       res.status(200).json({ sellers });

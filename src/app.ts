@@ -7,7 +7,7 @@ import { errorHandler } from "./shared/middlewares/errorHandler";
 import { server } from "./server";
 import cookieParser from "cookie-parser";
 import authRoutes from "./modules/auth/auth.routes";
-import sellerRoutes from "./modules/seller/seller.routes";
+import shopRoutes from "./modules/shop/shop.routes";
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(cors({
 }));
 
 app.use("/api", authRoutes);
-app.use("/api", sellerRoutes);
+app.use("/api", shopRoutes);
 
 server();
 

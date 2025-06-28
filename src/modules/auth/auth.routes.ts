@@ -3,7 +3,7 @@ import {
   adminLogin,
   logout,
   refreshToken,
-  sellerLogin
+  shopLogin
 } from "./auth.controller";
 import { LoginRequest } from "./types";
 
@@ -17,7 +17,7 @@ router.post("/auth/login",
       if (uniqId === process.env.ADMIN_NAME) {
         return adminLogin(req, res);
       } else {
-        return sellerLogin(req, res);
+        return shopLogin(req, res);
       }
     } catch (err) {
       next(err);

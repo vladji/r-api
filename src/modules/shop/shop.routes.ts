@@ -1,9 +1,9 @@
 import express from "express";
 import { verifyToken } from "../../shared/middlewares/verifyToken";
-import { getSellersList } from "./seller.controller";
+import { getShopList } from "./shop.controller";
 
 const router = express.Router();
 
-router.get("/sellers-list", verifyToken, getSellersList);
+router.get("/shops-list", verifyToken, getShopList);
 
 export default router;

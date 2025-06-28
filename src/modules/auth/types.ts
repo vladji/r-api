@@ -1,8 +1,8 @@
 import { Request } from "express";
 
 export enum UserRole {
-  Admin = 'admin',
-  Seller = 'seller',
+  Admin = "admin",
+  Shop = "shop",
 }
 
 interface LoginBody {

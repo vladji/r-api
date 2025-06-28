@@ -6,7 +6,7 @@ import { generateAccessToken } from "../../shared/utils/token";
 import jwt from "jsonwebtoken";
 import { TokenPayload } from "../../types/token";
 import { CookiesKeys } from "../../config/constants";
-import { SellerSchema } from "../seller/seller.model";
+import { ShopSchema } from "../shop/shop.model";
 import { authenticate } from "./utils/authenticate";
 
 const REFRESH_SECRET = process.env.REFRESH_SECRET!;
@@ -20,12 +20,12 @@ export const adminLogin = async (req: LoginRequest, res: Response) => {
     .catch((error) => errorHandler(error, req, res));
 };
 
-export const sellerLogin = async (req: LoginRequest, res: Response) => {
+export const shopLogin = async (req: LoginRequest, res: Response) => {
   const { uniqId, password } = req.body;
-  SellerSchema
+  ShopSchema
     .findOne({ uniqId: { $eq: uniqId } })
     .then((user) => authenticate(
-      { user, uniqId, password, role: UserRole.Seller, res }))
+      { user, uniqId, password, role: UserRole.Shop, res }))
     .catch((error) => errorHandler(error, req, res));
 };
 
