@@ -5,7 +5,7 @@ import {
   generateRefreshToken
 } from "../../../shared/utils/token";
 import { CookiesKeys } from "../../../config/constants";
-import { UserRole } from "../types";
+import { UserRole } from "../../../types/user";
 
 interface UserProps {
   uniqId: string;

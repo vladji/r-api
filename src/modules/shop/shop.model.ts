@@ -9,23 +9,25 @@ const Shop = new Schema({
   phone: { type: String, default: null, unique: true, required: true },
   passHash: { type: String, required: true },
   cover: {
-    image: { type: String, default: null },
+    image: { type: String, default: null, required: true },
   },
   openHours: {
     from: { type: String, default: null, required: true },
     to: { type: String, default: null, required: true },
   },
-  rating: { type: Number, default: null },
   readyTime: {
     min: { type: Number, default: null, required: true },
     max: { type: Number, default: null, required: true },
   },
-  menu_id: { type: ObjectId, ref: "menu", default: null, },
+  rating: { type: Number },
+  menu_id: { type: ObjectId, ref: "menu" },
 }, {
   toJSON: {
     transform(doc, ret) {
       delete ret._id;
       delete ret.__v;
+      delete ret.passHash;
+      delete ret.menu_id;
     }
   }
 });

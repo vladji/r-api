@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginRequest, UserRole } from "./types";
+import { LoginRequest } from "./types";
 import { AdminSchema } from "../admin/admin.model";
 import { errorHandler } from "../../shared/middlewares/errorHandler";
 import { generateAccessToken } from "../../shared/utils/token";
@@ -8,6 +8,7 @@ import { TokenPayload } from "../../types/token";
 import { CookiesKeys } from "../../config/constants";
 import { ShopSchema } from "../shop/shop.model";
 import { authenticate } from "./utils/authenticate";
+import { UserRole } from "../../types/user";
 
 const REFRESH_SECRET = process.env.REFRESH_SECRET!;
 

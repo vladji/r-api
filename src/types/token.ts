@@ -1,4 +1,6 @@
+import { UserRole } from "./user";
+
 export interface TokenPayload {
   uniqId: string;
-  role: "admin" | "seller";
+  role: UserRole;
 }
