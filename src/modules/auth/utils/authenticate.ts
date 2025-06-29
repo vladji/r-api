@@ -28,7 +28,7 @@ export const authenticate = async ({
   res
 }: AuthenticateProps) => {
   if (!user) {
-    return res.status(404).json({ error: "User not found" });
+    return res.status(404).json({ message: "User not found" });
   }
 
   const isValidPass = await checkPassword(password, user.passHash);

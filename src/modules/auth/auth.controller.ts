@@ -34,7 +34,7 @@ export const refreshToken = async (req: Request, res: Response) => {
   const token = req.cookies[CookiesKeys.refreshToken];
 
   if (!token) {
-    res.sendStatus(401);
+    res.status(401).json({ message: "Token not found" });
     return;
   }
 
@@ -43,14 +43,20 @@ export const refreshToken = async (req: Request, res: Response) => {
     const newAccessToken = generateAccessToken(
       { uniqId: payload.uniqId, role: payload.role });
     res.status(200).json({ accessToken: newAccessToken });
-  } catch {
+  } catch (error) {
     res.clearCookie(CookiesKeys.refreshToken, {
       httpOnly: true,
       sameSite: "strict",
       secure: process.env.NODE_ENV !== "development",
       path: "/"
     });
-    res.status(403).json({ message: "Refresh token expired or invalid" });
+
+    if (error instanceof jwt.TokenExpiredError) {
+      res.status(401).json({ message: "Refresh token expired" });
+      return;
+    }
+
+    res.status(403).json({ message: "Invalid refresh token" });
     return;
   }
 };

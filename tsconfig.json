@@ -11,9 +11,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "src"
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "baseUrl": "src"
 }
