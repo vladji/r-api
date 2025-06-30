@@ -7,38 +7,29 @@ import {
 import { CookiesKeys } from "../../../config/constants";
 import { UserRole } from "../../../types/user";
 
-interface UserProps {
-  uniqId: string;
-  passHash: string;
-}
-
 interface AuthenticateProps {
-  user: UserProps | null;
   uniqId: string;
   password: string;
-  role: UserRole;
+  passHash: string;
+  roles: Partial<Record<UserRole, boolean>>;
   res: Response;
 }
 
 export const authenticate = async ({
-  user,
   uniqId,
   password,
-  role,
+  passHash,
+  roles,
   res
 }: AuthenticateProps) => {
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-
-  const isValidPass = await checkPassword(password, user.passHash);
+  const isValidPass = await checkPassword(password, passHash);
 
   if (!isValidPass) {
     return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  const accessToken = generateAccessToken({ uniqId, role });
-  const refreshToken = generateRefreshToken({ uniqId, role });
+  const accessToken = generateAccessToken({ uniqId, roles });
+  const refreshToken = generateRefreshToken({ uniqId, roles });
 
   res.cookie(CookiesKeys.refreshToken, refreshToken, {
     httpOnly: true,

@@ -14,19 +14,42 @@ const REFRESH_SECRET = process.env.REFRESH_SECRET!;
 
 export const adminLogin = async (req: LoginRequest, res: Response) => {
   const { uniqId, password } = req.body;
+
   AdminSchema
     .findOne({ uniqId: { $eq: uniqId } })
-    .then((user) => authenticate(
-      { user, uniqId, password, role: UserRole.Admin, res }))
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const passHash = user!.credentials!.rootPassHash;
+
+      return authenticate({
+        uniqId,
+        password,
+        passHash,
+        roles: { [UserRole.Admin]: true },
+        res
+      });
+    })
     .catch((error) => errorHandler(error, req, res));
 };
 
 export const shopLogin = async (req: LoginRequest, res: Response) => {
   const { uniqId, password } = req.body;
+
   ShopSchema
     .findOne({ uniqId: { $eq: uniqId } })
-    .then((user) => authenticate(
-      { user, uniqId, password, role: UserRole.Shop, res }))
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const passHash = user!.credentials!.rootPassHash!;
+
+      return authenticate(
+        { uniqId, password, passHash, roles: { [UserRole.Shop]: true }, res });
+    })
     .catch((error) => errorHandler(error, req, res));
 };
 
@@ -41,7 +64,7 @@ export const refreshToken = async (req: Request, res: Response) => {
   try {
     const payload = jwt.verify(token, REFRESH_SECRET) as TokenPayload;
     const newAccessToken = generateAccessToken(
-      { uniqId: payload.uniqId, role: payload.role });
+      { uniqId: payload.uniqId, roles: payload.roles });
     res.status(200).json({ accessToken: newAccessToken });
   } catch (error) {
     res.clearCookie(CookiesKeys.refreshToken, {

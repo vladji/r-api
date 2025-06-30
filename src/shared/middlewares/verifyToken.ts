@@ -4,7 +4,11 @@ import { TokenPayload } from "../../types/token";
 
 const ACCESS_SECRET = process.env.ACCESS_SECRET!;
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader?.split(" ")[1];
 
