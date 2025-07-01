@@ -8,7 +8,9 @@ const adminSchema = new Schema({
     required: true,
     unique: true,
   },
-  passHash: { type: String, required: true },
+  credentials: {
+    rootPassHash: { type: String, required: true, }
+  }
 }, {
   toJSON: {
     transform(doc, ret) {
