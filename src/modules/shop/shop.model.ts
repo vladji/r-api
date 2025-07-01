@@ -10,22 +10,22 @@ export interface ShopProps {
   };
   shopProfile: {
     name: string | null;
-    shopPhone?: string;
     shopImage: string | null;
-    openHours: {
+    rating: number | null;
+    shopPhone?: string;
+    openHours?: {
       from: string | null;
       to: string | null;
     };
-    readyTime: {
+    readyTime?: {
       min: number | null;
       max: number | null;
     };
-    rating: number | null;
   };
   profileCompleted: boolean;
   hasMenu: boolean;
-  onAir: boolean;
-  disabled: boolean;
+  enabled: boolean;
+  published: boolean;
   credentials: {
     rootPass?: string;
     rootPassHash: string;
@@ -58,8 +58,8 @@ const Shop = new Schema<ShopDocument>({
   },
   profileCompleted: { type: Boolean, default: false, required: true },
   hasMenu: { type: Boolean, default: false, required: true },
-  onAir: { type: Boolean, default: false, required: true },
-  disabled: { type: Boolean, default: false, required: true },
+  enabled: { type: Boolean, default: false, required: true },
+  published: { type: Boolean, default: false, required: true },
   credentials: {
     rootPass: { type: String },
     rootPassHash: { type: String, required: true },

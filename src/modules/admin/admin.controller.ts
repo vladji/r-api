@@ -26,6 +26,7 @@ export const createShop = async (req: Request, res: Response) => {
       shopProfile: {
         name: null,
         shopImage: null,
+        rating: null,
         openHours: {
           from: null,
           to: null,
@@ -34,12 +35,11 @@ export const createShop = async (req: Request, res: Response) => {
           min: null,
           max: null,
         },
-        rating: null
       },
       profileCompleted: false,
       hasMenu: false,
-      onAir: false,
-      disabled: false,
+      enabled: false,
+      published: false,
       credentials: {
         rootPass,
         rootPassHash,
