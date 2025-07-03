@@ -9,6 +9,8 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./modules/auth/auth.routes";
 import adminRoutes from "./modules/admin/admin.routes";
 
+const URL_ORIGIN = process.env.URL_ORIGIN || "http://localhost:5173";
+
 const app = express();
 
 app.use(compression());
@@ -17,7 +19,7 @@ app.use(express.urlencoded({ extended: true })); // if req.body sent as form
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://kit-food.net"],
+  origin: ["http://localhost:5173", URL_ORIGIN],
   credentials: true,
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
